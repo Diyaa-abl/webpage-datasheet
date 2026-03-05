@@ -366,9 +366,178 @@ body{
   .hero-stats{flex-wrap:wrap}.hs{padding:16px 24px}
   .card-left,.card-right,.card-uc{padding-left:18px;padding-right:18px}
 }
+
+/* ═══════════════════════════════════════════════════
+   CREATIVE STRUCTURE ENHANCEMENTS — Dark Theme
+   ═══════════════════════════════════════════════════ */
+
+/* ── Diagonal hero cut ── */
+.hero{
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 52px),0 100%);
+  padding-bottom:110px;
+  position:relative;z-index:2;
+}
+
+/* ── Hero scroll caret ── */
+.hero-scroll{
+  position:absolute;bottom:72px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:var(--txt3);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  animation:scrollBob 2.2s ease-in-out infinite;pointer-events:none;
+}
+.hero-scroll-line{
+  width:1.5px;height:34px;
+  background:linear-gradient(180deg,var(--blue) 0%,transparent 100%);
+  border-radius:1px;margin-top:4px;
+}
+@keyframes scrollBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+/* ── Section z-layers ── */
+.wrap{position:relative;z-index:3;background:var(--navy)}
+.apps{position:relative;z-index:3}
+.cta{position:relative;z-index:3}
+
+/* ── Filter bar → enclosed pill track ── */
+.fbar{
+  display:flex;flex-wrap:nowrap;gap:0;margin-bottom:32px;
+  background:var(--s1);border:1px solid var(--bdr);border-radius:12px;
+  padding:5px;overflow-x:auto;width:fit-content;
+  scrollbar-width:none;
+}
+.fbar::-webkit-scrollbar{display:none}
+.fb{
+  flex-shrink:0;padding:8px 22px;border-radius:8px;border:none;
+  background:transparent;color:var(--txt2);
+  font-family:'Manrope',sans-serif;font-size:.87rem;font-weight:600;
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.fb:hover{color:var(--white);background:rgba(30,95,173,.12)}
+.fb.on{background:var(--blue);color:#fff;box-shadow:0 2px 16px rgba(30,95,173,.4)}
+
+/* ── Cards: timeline connector ── */
+.cards-timeline{position:relative;padding-left:44px}
+.cards-timeline::before{
+  content:'';position:absolute;left:12px;top:30px;bottom:30px;
+  width:2px;
+  background:linear-gradient(180deg,var(--blue) 0%,var(--orange) 100%);
+  border-radius:1px;opacity:.3;
+}
+.cards-stack{display:flex;flex-direction:column;gap:36px;position:relative}
+
+/* Card dot on timeline */
+.card-tl-dot{
+  position:absolute;left:-38px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;border-radius:50%;
+  background:var(--navy);border:2px solid var(--blue);
+  box-shadow:0 0 12px rgba(30,95,173,.55);z-index:5;
+}
+
+/* Card number badge */
+.card-num{
+  position:absolute;top:18px;left:-44px;
+  font-size:.65rem;font-weight:800;letter-spacing:.1em;
+  color:var(--blue2);font-family:'Manrope',sans-serif;
+  writing-mode:vertical-rl;text-transform:uppercase;opacity:.6;
+}
+
+.card{position:relative;overflow:visible!important}
+.card::after{display:none}
+
+/* Diagonal section cut above apps */
+.apps{
+  clip-path:polygon(0 52px,100% 0,100% 100%,0 100%);
+  margin-top:-52px;padding-top:132px!important;
+}
+
+/* ── Bento application grid ── */
+.appg{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-auto-rows:minmax(120px,auto);
+  gap:3px;margin-top:38px;
+}
+.ac{
+  background:var(--s2);border:1px solid var(--bdr);
+  padding:28px 12px;text-align:center;
+  transition:all .22s;cursor:default;
+}
+.ac:nth-child(1){grid-column:span 2;grid-row:span 1}
+.ac:nth-child(7){grid-column:span 2}
+.ac:nth-child(13){grid-column:span 2}
+.ac:hover{background:rgba(242,101,34,.09);border-color:var(--bdr-o);transform:scale(1.03);z-index:2;position:relative}
+.aci{font-size:2rem;display:block;margin-bottom:10px}
+.acn{font-size:.85rem;font-weight:500;color:var(--txt2)}
+
+/* ── Side scroll dots ── */
+.nav-dots{
+  position:fixed;right:20px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;z-index:500;
+}
+.nd{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--txt3);transition:all .3s;cursor:pointer;
+  border:none;padding:0;
+}
+.nd:hover{background:var(--txt2)}
+.nd.active{background:var(--orange);height:22px;border-radius:3px;
+  box-shadow:0 0 10px rgba(242,101,34,.55);}
+.nd-label{
+  position:absolute;right:16px;white-space:nowrap;
+  font-size:.7rem;font-weight:600;color:var(--txt3);
+  background:var(--s1);border:1px solid var(--bdr);
+  border-radius:6px;padding:3px 8px;
+  opacity:0;transform:translateX(0);
+  transition:opacity .2s;pointer-events:none;
+  top:50%;transform:translateY(-50%);
+}
+.nd:hover .nd-label{opacity:1}
+
+/* ── Enhanced CTA ── */
+.cta{overflow:hidden}
+.cta-ring{
+  position:absolute;top:-80px;right:-80px;
+  width:360px;height:360px;border-radius:50%;
+  border:1px solid rgba(30,95,173,.15);pointer-events:none;
+}
+.cta-ring::before{
+  content:'';position:absolute;inset:40px;border-radius:50%;
+  border:1px solid rgba(242,101,34,.1);
+}
+.cta-inner{position:relative;max-width:680px;margin:0 auto}
+
+/* ── Hero floating chips ── */
+.hero-chips{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.hc{
+  position:absolute;
+  background:rgba(30,95,173,.08);border:1px solid rgba(30,95,173,.18);
+  border-radius:100px;padding:5px 14px;
+  font-size:.72rem;font-weight:600;color:rgba(43,125,212,.5);
+  white-space:nowrap;
+  animation:floatChip linear infinite;
+}
+@keyframes floatChip{0%{opacity:0;transform:translateY(20px)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
+
 </style>
 </head>
 <body>
+
+<!-- SIDE NAV DOTS -->
+<nav class="nav-dots" aria-label="Page sections">
+  <button class="nd active" onclick="scrollToSection('hero')" title="Hero">
+    <span class="nd-label">Top</span>
+  </button>
+  <button class="nd" onclick="scrollToSection('products')" title="Products">
+    <span class="nd-label">Machinery</span>
+  </button>
+  <button class="nd" onclick="scrollToSection('apps')" title="Applications">
+    <span class="nd-label">Applications</span>
+  </button>
+  <button class="nd" onclick="scrollToSection('cta-section')" title="Contact">
+    <span class="nd-label">Contact</span>
+  </button>
+</nav>
 
 <!-- NAV -->
 <nav class="nav">
@@ -386,6 +555,13 @@ body{
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-chips">
+    <div class="hc" style="left:6%;top:30%;animation-duration:14s;animation-delay:-3s">UV Flatbed</div>
+    <div class="hc" style="left:82%;top:22%;animation-duration:18s;animation-delay:-7s">Roll-to-Roll</div>
+    <div class="hc" style="left:72%;top:65%;animation-duration:16s;animation-delay:-2s">Hybrid UV</div>
+    <div class="hc" style="left:4%;top:70%;animation-duration:20s;animation-delay:-9s">JHF &amp; Dlican</div>
+    <div class="hc" style="left:44%;top:82%;animation-duration:12s;animation-delay:-5s">UV LED Tech</div>
+  </div>
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
   <div class="hero-label">Technical Data Sheet &mdash; 02/26</div>
@@ -409,6 +585,7 @@ body{
       <div class="hs-l">Technology</div>
     </div>
   </div>
+  <div class="hero-scroll">SCROLL<div class="hero-scroll-line"></div></div>
 </section>
 
 <!-- PRODUCTS -->
@@ -424,6 +601,7 @@ body{
     <button class="fb" onclick="flt('industrial',this)">Industrial</button>
     <button class="fb" onclick="flt('textile',this)">Textile</button>
   </div>
+  <div class="cards-timeline">
   <div class="cards-stack" id="stack"><article class="card" data-cat="uv-flatbed">
   <div class="banner-wrap">
     <div class="banner-img" style="aspect-ratio:2000/1125">
@@ -736,6 +914,7 @@ body{
 </article></div>
 </div>
 
+  </div><!-- /cards-timeline -->
 <!-- APPLICATIONS -->
 <div class="apps" id="apps">
   <div class="apps-inner">
@@ -765,9 +944,12 @@ body{
 
 <!-- CTA -->
 <div class="cta">
+  <div class="cta-ring"></div>
+  <div class="cta-inner">
   <div class="cta-h">Find the Right Machine for Your Needs</div>
   <p class="cta-p">Contact Blue Rhine &mdash; exclusive JHF and Dlican distributor in the UAE and GCC.</p>
   <button class="cta-btn">Get in Touch</button>
+  </div><!-- /cta-inner -->
 </div>
 
 <!-- FOOTER -->
@@ -835,6 +1017,33 @@ document.querySelectorAll('.card').forEach(function(el,i){
   el.style.transitionDelay=(i*0.05)+'s';
   io.observe(el);
 });
+</script>
+
+<script>
+/* ── Side navigation dots ── */
+(function(){
+  var sections=[
+    document.querySelector('.hero'),
+    document.getElementById('products'),
+    document.getElementById('apps'),
+    document.querySelector('.cta')
+  ];
+  var dots=document.querySelectorAll('.nd');
+  function scrollToSection(id){
+    var el=id==='hero'?document.querySelector('.hero'):id==='cta-section'?document.querySelector('.cta'):document.getElementById(id);
+    if(el)el.scrollIntoView({behavior:'smooth'});
+  }
+  window.scrollToSection=scrollToSection;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var idx=sections.indexOf(e.target);
+        dots.forEach(function(d,i){d.classList.toggle('active',i===idx)});
+      }
+    });
+  },{threshold:0.35});
+  sections.forEach(function(s){if(s)io.observe(s)});
+})();
 </script>
 </body>
 </html>
